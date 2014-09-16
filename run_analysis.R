@@ -3,7 +3,7 @@ setwd("~/UCI HAR Dataset")
     require("data.table")
     require("reshape2")
 getwd()
-dir()
+
 ## Load: activity labels
     activity_labels <- read.table("~/UCI HAR Dataset/activity_labels.txt")[,2]
 ## Load: data column names
@@ -43,7 +43,9 @@ dir()
         melt_data = melt(data, id = id_labels, measure.vars = data_labels)
 ## Apply mean function to dataset using dcast function
 tidy_data = dcast(melt_data, subject + Activity_Label ~ variable, mean)
-#tidy_data 
-    write.table(tidy_data, file = "./tidy_data.txt")
-#tidy_data <- read.table("~/UCI HAR Dataset/tidy_data.txt")      
-#tidy_data for final output, write out the second dataset
+
+    write.table(tidy_data,file = "./tidy_data.txt", row.names = F,sep = "\t")
+
+## check tidy_data
+tidy_data <- read.table("~/UCI HAR Dataset/tidy_data.txt", sep="\t")      
+head(tidy_data) 
